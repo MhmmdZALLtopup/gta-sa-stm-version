@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTA SA: STM Version | Android Official</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --gold: #f39c12;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --red: #e74c3c;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        /* Basic Setup */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+        body { background: var(--dark); color: #fff; line-height: 1.6; overflow-x: hidden; width: 100%; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+
+        /* Navigation */
+        nav { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; z-index: 1000; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); border-bottom: 1px solid #222; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--gold); letter-spacing: 2px; }
+        .menu { display: flex; gap: 20px; list-style: none; }
+        .menu a { color: #fff; text-decoration: none; font-size: 0.85rem; transition: var(--transition); text-transform: uppercase; font-weight: 600; }
+        .menu a:hover { color: var(--gold); }
+        .hamburger { display: none; cursor: pointer; color: var(--gold); font-size: 1.5rem; }
+
+        /* Hero Section */
+        .hero { 
+            height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; 
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDqmj72fHNe8Ye7Pn0SDlCrWA2oghj2FB2Hz-OWZQ_7JI5WoUiMrm9CEd-&s=10');
+            background-size: cover; background-position: center; background-attachment: fixed; padding: 0 5%;
+        }
+        .hero h1 { font-size: 10vw; text-transform: uppercase; line-height: 1; margin-bottom: 10px; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .hero p { font-size: 1.2rem; color: #ccc; margin-bottom: 30px; letter-spacing: 2px; }
+
+        /* General Styles */
+        section { padding: 100px 5%; width: 100%; }
+        .section-title { font-size: 2.5rem; margin-bottom: 50px; text-align: center; color: var(--gold); text-transform: uppercase; font-weight: 800; }
+        .btn-glow { padding: 15px 40px; background: transparent; border: 2px solid var(--gold); color: var(--gold); font-weight: 800; cursor: pointer; border-radius: 50px; transition: var(--transition); text-transform: uppercase; }
+        .btn-glow:hover { background: var(--gold); color: #000; box-shadow: 0 0 30px var(--gold); transform: translateY(-3px); }
+
+        /* MOD LIST / FEATURES */
+        .mod-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; max-width: 1200px; margin: 0 auto; }
+        .mod-card { background: #111; padding: 30px; border-radius: 15px; border: 1px solid #222; transition: 0.4s; position: relative; overflow: hidden; }
+        .mod-card:hover { border-color: var(--gold); transform: translateY(-10px); background: #151515; }
+        .mod-card i { font-size: 2.5rem; color: var(--gold); margin-bottom: 20px; display: block; }
+        .mod-card h3 { margin-bottom: 15px; text-transform: uppercase; font-size: 1.3rem; }
+        .mod-card ul { list-style: none; text-align: left; }
+        .mod-card ul li { color: #aaa; font-size: 0.9rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .mod-card ul li::before { content: '✔'; color: var(--gold); font-weight: bold; }
+
+        /* Trailer Video */
+        .video-box { width: 100%; max-width: 900px; margin: 0 auto; aspect-ratio: 16/9; background: #000; border-radius: 20px; overflow: hidden; border: 2px solid #333; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.7); cursor: pointer; }
+        .video-box video { width: 100%; height: 100%; object-fit: cover; }
+        .unmute-overlay { position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.8); color: #fff; padding: 8px 15px; border-radius: 8px; font-size: 0.8rem; pointer-events: none; transition: 0.3s; z-index: 10; }
+        .video-box.unmuted .unmute-overlay { opacity: 0; }
+
+        /* Requirements Specs */
+        .specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; }
+        .spec-card { background: #0c0c0c; padding: 30px; border-radius: 15px; border: 1px solid #222; text-align: center; }
+        .spec-card i { font-size: 2rem; color: var(--gold); margin-bottom: 15px; }
+
+        /* Community & Comments */
+        .yt-link { display: inline-flex; align-items: center; gap: 15px; color: #fff; text-decoration: none; font-size: 1.5rem; font-weight: 800; margin-bottom: 50px; transition: 0.3s; }
+        .yt-link i { color: #ff0000; font-size: 3rem; }
+        .yt-link:hover { color: #ff0000; transform: scale(1.05); }
+
+        .comment-container { max-width: 750px; margin: 0 auto; background: #111; padding: 40px; border-radius: 20px; border: 1px solid #222; }
+        .input-group { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
+        .input-group input, .input-group textarea { background: #050505; border: 1px solid #333; color: #fff; padding: 15px; border-radius: 10px; outline: none; transition: 0.3s; }
+        .input-group input:focus, .input-group textarea:focus { border-color: var(--gold); }
+        .btn-post { background: var(--gold); color: #000; border: none; padding: 15px; border-radius: 10px; font-weight: 800; cursor: pointer; text-transform: uppercase; }
+
+        #comment-list { list-style: none; margin-top: 30px; }
+        .comment-item { background: #1a1a1a; padding: 20px; border-radius: 12px; margin-bottom: 15px; border-left: 5px solid var(--gold); text-align: left; }
+        .comment-item b { color: var(--gold); display: block; margin-bottom: 5px; }
+
+        /* MODAL POPUP */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; justify-content: center; align-items: center; z-index: 5000; opacity: 0; visibility: hidden; transition: 0.4s; backdrop-filter: blur(10px); }
+        .modal-overlay.show { opacity: 1; visibility: visible; }
+        .modal-content { background: #111; padding: 50px 30px; border-radius: 20px; border: 2px solid var(--red); text-align: center; max-width: 450px; width: 90%; transform: translateY(50px); transition: 0.4s; }
+        .modal-overlay.show .modal-content { transform: translateY(0); }
+        .modal-content i { font-size: 4rem; color: var(--red); margin-bottom: 20px; }
+        .btn-modal { background: var(--red); color: #fff; border: none; padding: 12px 30px; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 20px; }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .menu { display: none; position: absolute; top: 70px; left: 0; width: 100%; background: #000; flex-direction: column; padding: 30px; }
+            .menu.active { display: flex; }
+            .hamburger { display: block; }
+            .hero h1 { font-size: 18vw; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">STM-MODS</div>
+        <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        <ul class="menu" id="nav-menu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#mods">Mod List</a></li>
+            <li><a href="#trailer">Trailer</a></li>
+            <li><a href="#specs">Specs</a></li>
+            <li><a href="#download">Download</a></li>
+            <li><a href="#community">Community</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero" id="home">
+        <h1>GTA STM</h1>
+        <p>DEFINITIVE MODPACK FOR ANDROID</p>
+        <button class="btn-glow" onclick="showToast()">Notify Me</button>
+    </header>
+
+    <section id="mods" style="background: #080808;">
+        <h2 class="section-title">Features & Mod List</h2>
+        <div class="mod-grid">
+            <div class="mod-card">
+                <i class="fas fa-eye"></i>
+                <h3>Visual & Graphics</h3>
+                <ul>
+                    <li>Skybox Ultra HD (Awan Realistis)</li>
+                    <li>Road Texture Remastered 4K</li>
+                    <li>Timecyc Natural Lighting</li>
+                    <li>Realistic Water & Reflection</li>
+                </ul>
+            </div>
+            <div class="mod-card">
+                <i class="fas fa-motorcycle"></i>
+                <h3>Indonesian Vehicles</h3>
+                <ul>
+                    <li>Motor: Vario, Beat, RX-King, Drag</li>
+                    <li>Mobil: Avanza, Pajero, Polisi Indo</li>
+                    <li>Bus Simulator Indonesia Edition</li>
+                    <li>Handling Realistis & Suara Mesin</li>
+                </ul>
+            </div>
+            <div class="mod-card">
+                <i class="fas fa-code"></i>
+                <h3>Gameplay & Cleo</h3>
+                <ul>
+                    <li>Cheat Menu (Bahasa Indonesia)</li>
+                    <li>Sistem Sholat & Adzan</li>
+                    <li>Skinpack Tawuran & Anak STM</li>
+                    <li>First Person Mode (POV)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="trailer">
+        <h2 class="section-title">Official Trailer</h2>
+        <div class="video-box" id="video-container" onclick="toggleMute()">
+            <div class="unmute-overlay"><i class="fas fa-volume-mute"></i> Click to Unmute</div>
+            <video id="main-video" autoplay muted loop playsinline>
+                <source src="vidio.mp4" type="video/mp4">
+            </video>
+        </div>
+    </section>
+
+    <section id="specs" style="background:#0c0c0c;">
+        <h2 class="section-title">Requirements</h2>
+        <div class="specs-grid">
+            <div class="spec-card"><i class="fab fa-android"></i><h4>OS</h4><p>Android 10+</p></div>
+            <div class="spec-card"><i class="fas fa-microchip"></i><h4>CPU</h4><p>Snapdragon 720G+</p></div>
+            <div class="spec-card"><i class="fas fa-memory"></i><h4>RAM</h4><p>Min. 6GB</p></div>
+            <div class="spec-card"><i class="fas fa-hdd"></i><h4>Size</h4><p>5GB Free</p></div>
+        </div>
+    </section>
+
+    <section id="download">
+        <h2 class="section-title">Ready to Play?</h2>
+        <div style="text-align: center;">
+            <button class="btn-glow" onclick="showToast()">Download Link (Soon)</button>
+        </div>
+    </section>
+
+    <section id="community" style="background: var(--darker); text-align: center;">
+        <h2 class="section-title">Community</h2>
+        <a href="https://youtube.com/@STM-MODS" target="_blank" class="yt-link">
+            <i class="fab fa-youtube"></i> Subscribe STM-MODS
+        </a>
+
+        <div class="comment-container">
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Nama Kamu...">
+                <textarea id="comment-text" placeholder="Berikan dukungan atau komentar positif..." rows="3"></textarea>
+                <button class="btn-post" onclick="addComment()">Posting Komentar</button>
+            </div>
+            <ul id="comment-list"></ul>
+        </div>
+    </section>
+
+    <footer>
+        <p>Fan-made project. All rights reserved to Rockstar Games.</p>
+        <p style="color: #444; margin-top: 10px;">STM Modding Team &copy; 2026</p>
+    </footer>
+
+    <div id="warning-modal" class="modal-overlay">
+        <div class="modal-content">
+            <i class="fas fa-ban"></i>
+            <h3>DIBLOKIR!</h3>
+            <p>Komentar kamu mengandung kata kasar atau negatif. Tolong hargai komunitas ini dengan tetap sopan!</p>
+            <button class="btn-modal" onclick="closeWarning()">SAYA MENGERTI</button>
+        </div>
+    </div>
+
+    <div id="toast">COMING SOON!</div>
+
+    <script>
+        // Menu
+        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('active'); }
+
+        // Video
+        const v = document.getElementById('main-video');
+        const c = document.getElementById('video-container');
+        function toggleMute() {
+            if(v.muted) { v.muted = false; c.classList.add('unmuted'); }
+            else { v.muted = true; c.classList.remove('unmuted'); }
+        }
+
+        // Toast
+        function showToast() {
+            const t = document.getElementById('toast');
+            t.classList.add('active');
+            setTimeout(() => t.classList.remove('active'), 3000);
+        }
+
+        // Comment & Filter Logic
+        const badWords = ['anjing','babi','bangsat','kontol','memek','ngentot','tolol','goblok','bajingan','fuck','shit','bitch','asshole','peler','pantek'];
+        
+        function showWarning() { document.getElementById('warning-modal').classList.add('show'); }
+        function closeWarning() { document.getElementById('warning-modal').classList.remove('show'); }
+
+        function loadComments() {
+            const list = document.getElementById('comment-list');
+            const data = JSON.parse(localStorage.getItem('stm_v_comments')) || [{user: "Admin STM", text: "Siap tawuran di Los Santos?!"}];
+            list.innerHTML = data.map(i => `<li class="comment-item"><b>${i.user}</b><p>${i.text}</p></li>`).join('');
+        }
+
+        function addComment() {
+            const u = document.getElementById('username').value.trim();
+            const t = document.getElementById('comment-text').value.trim();
+            
+            if(!u || !t) return alert("Isi dulu bro!");
+
+            const check = (str) => badWords.some(w => str.toLowerCase().includes(w));
+            if(check(u) || check(t)) return showWarning();
+
+            const data = JSON.parse(localStorage.getItem('stm_v_comments')) || [];
+            data.unshift({user: u, text: t});
+            localStorage.setItem('stm_v_comments', JSON.stringify(data));
+            
+            document.getElementById('username').value = "";
+            document.getElementById('comment-text').value = "";
+            loadComments();
+        }
+
+        window.onload = loadComments;
+    </script>
+</body>
+</html>
