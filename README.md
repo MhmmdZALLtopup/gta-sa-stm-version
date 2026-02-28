@@ -1,0 +1,1 @@
+# gta-sa-stm-version
